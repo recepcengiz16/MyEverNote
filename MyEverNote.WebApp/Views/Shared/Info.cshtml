@@ -1,0 +1,55 @@
+﻿@using MyEverNote.WebApp.ViewModels
+@model InfoViewModel
+@{
+    ViewBag.Title = Model.Title;
+}
+
+
+<div class="container" style="margin-top:140px;margin-bottom:130px;">
+    <div class="login-wrap mt-4">
+        <div class="login-html">
+            <div class="login-form">
+                <div>
+                    <h3 class="text-center">@Model.Header</h3>
+                    <div class="text-info text-center">
+                        <h2><i class="fas fa-info-circle"></i>&nbsp; @Model.Title</h2>
+                        <hr />
+                        <p class="text-center">
+                            @foreach (String item in Model.Items)
+                            {
+                                @item <br />
+                            }
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@{
+    String js = String.Empty;
+
+    if (Model.IsRedirecting)
+    {
+        js = "setTimeout(function() {window.location =" + Model.RedirectUrl + ";}," + Model.RedirectingTimeOut + ");";
+    }
+}
+
+<script>
+    $(function () {
+
+        @Html.Raw(js); //nasıl yazıldıysa o şekilde ekledik. Tırnak felan yanlış algılama olmadan raw ile ekleriz
+        //setTimeout(function () {
+
+        //    window.location = "/Home/Index";//sayfayı yönlendirdik
+
+        //},5000)//bir fonksiyonu verdiğimiz süre sonucu çalıştırır.5000 ms
+    })
+</script>
+
+
+
+
+
+

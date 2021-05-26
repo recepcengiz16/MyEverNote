@@ -1,0 +1,19 @@
+﻿
+@{
+    ViewBag.Title = "Yetkisiz Erişim";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 offset-2 mt-5">
+            <h1 class="text-center"><i class="fas fa-minus-circle"></i> Yetkisiz Erişim</h1>
+
+            <p class="text-danger text-center">
+                Bu sayfaya erişim yetkiniz bulunmamaktadır.
+                <br /><br />
+                @Html.ActionLink("Ana Sayfaya Git", "Index", "Home", null, new { @class = "btn btn-success" })
+            </p>
+        </div>
+    </div>
+</div>
+

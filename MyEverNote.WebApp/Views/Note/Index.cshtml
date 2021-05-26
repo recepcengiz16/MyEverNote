@@ -1,0 +1,76 @@
+﻿@model IEnumerable<MyEverNote.Entities.Note>
+
+@{
+    ViewBag.Title = "Notlarım";
+}
+
+<div class="row">
+    <div class="col-md-8 offset-2">
+        <h2 class="mt-3 text-center">Not Listesi</h2>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-md-10 offset-1">
+        <p>
+            @Html.ActionLink("Yeni Not Ekle", "Create", null, new { @class = "btn btn-primary" })
+        </p>
+        <table class="table">
+            <tr class="bg-dark text-white">
+                <th>
+                    @Html.DisplayNameFor(model => model.Category.Title)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Title)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Text)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.IsDraft)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.LikeCount)
+                </th>
+
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Category.Title)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Text)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IsDraft)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.LikeCount)
+                    </td>
+                    <td style="width:250px">
+                        <button class="btn btn-success btn-sm" type="button" data-toggle="modal" data-note-id="@item.Id" data-target="#modal_comment">
+                            <i class="far fa-comment"></i>
+                        </button> |
+                        @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-warning btn-sm" }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-info btn-sm" }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-danger btn-sm" })
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
+</div>
+
+
+@MyBootsrap.ModalPopUp(id: "modal_comment", title: "Yorumlar")
+
+<script src="~/Scripts/comment.js"></script>

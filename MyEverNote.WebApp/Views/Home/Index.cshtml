@@ -1,0 +1,116 @@
+﻿@using MyEverNote.Entities
+@model List<Note>
+
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="container">
+
+    <div class="row">
+
+        <div class="col-lg-3">
+
+            @Html.Partial("_PartialCategories")
+
+        </div>
+        <!-- /.col-lg-3 -->
+
+        <div class="col-lg-9">
+
+            <div id="carouselExampleIndicators" class="carousel slide my-4" data-ride="carousel">
+                <ol class="carousel-indicators">
+                    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                </ol>
+                <div class="carousel-inner" role="listbox">
+                    <div class="carousel-item active">
+                        <img class="img-fluid" src="~/designimages/slide1.png" width="900" height="80" alt="First slide">
+                    </div>
+                    <div class="carousel-item">
+                        <img class="img-fluid" src="~/designimages/slide2.jpg" width="900" height="80" alt="Second slide">
+                    </div>
+                    <div class="carousel-item">
+                        <img class="img-fluid" src="~/designimages/slide3.png" width="900" height="80" alt="Third slide">
+                    </div>
+                </div>
+                <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+
+            <div class="row">
+
+                @foreach (Note not in Model)
+                {
+                    <div class="col-lg-4 col-md-6 mb-4" data-note-id="@not.Id">
+                        <div class="card h-100">
+                            <a href="#"><img class="card-img-top" src="~/designimages/note.png" width="700" height="150" alt="@not.Title"></a>
+                            <div class="card-body">
+                                <h6 class="text-right">
+                                    @not.Owner.UserName <i class="fas fa-user-circle"></i> <br />
+                                    @not.ModifiedOn.ToString("dd.MM.yy HH:mm")  <i class="far fa-calendar-alt"></i>
+                                </h6>
+                                <h4 class="card-title">
+                                    <a href="#" data-note-id="@not.Id" data-toggle="modal"  data-target="#modal_notedetail">@not.Title</a>
+                                </h4>
+                                <p class="card-text">
+                                    @if (String.IsNullOrEmpty(not.Text) == false && not.Text.Length > 50)
+                                    {
+                                        @(not.Text.Substring(0, 50)+"...")
+                                    <p class="text-right">
+                                        <a href="" data-note-id="@not.Id" data-toggle="modal"  data-target="#modal_notedetail" class="btn btn-success btn-sm">Devamı.. <i class="fas fa-angle-double-right"></i></a> 
+                                    </p>
+                                }
+                                else
+                                {
+                                    @not.Text
+                                }
+
+                                </div>
+
+                                <div class="card-footer">
+                                    <button class="btn-light btn-sm mr-5" type="button" data-liked="false" data-note-id="@not.Id"><small class="text-muted"> <i class="far fa-star like star"></i> &nbsp; <span class="like-count">@not.LikeCount</span></small></button>
+                                    <button class="btn-light btn-sm" type="button" data-note-id="@not.Id" data-toggle="modal"  data-target="#modal_comment"><i class="far fa-comment"></i> Yorumlar</button>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+
+            </div>
+            <!-- /.row -->
+
+        </div>
+        <!-- /.col-lg-9 -->
+
+    </div>
+    <!-- /.row -->
+
+</div>
+
+@section footer{
+    @Html.Partial("_PartialFooter")
+}
+
+
+@MyBootsrap.ModalPopUp(id: "modal_comment", title: "Yorumlar")
+@MyBootsrap.ModalPopUp(id: "modal_notedetail",title:"Not Detayı")
+<script src="~/Scripts/comment.js"></script>
+<script src="~/Scripts/like.js"></script>
+<script src="~/Scripts/NoteDetailPopup.js"></script>
+
+@*Modal popup show olduğunda gidip controllerdan actionu çağırıp partailcommentsi çağırmamız gerek.
+    sonra o htmli de açılacak olan modelın içine koymamız gerekli. Yorumların body kısmında gözükecek ya*@
+
+@*show comments dedikten sonra da idyi nasıl gönderebiliriz.
+    Şöyle yukarıda yorum butonuna data- diyerek kendi attribute ümüzü verdik.
+    oradan idyi alacağız. çünkü her yorumun idsi farklı
+*@

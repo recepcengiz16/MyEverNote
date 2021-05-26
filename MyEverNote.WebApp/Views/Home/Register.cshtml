@@ -1,0 +1,45 @@
+﻿@using MyEverNote.Entities.ValueObject
+@model RegisterViewModel
+
+@{
+    ViewBag.Title = "MyEverNote-Kayıt Sayfası";
+}
+<link href="~/Content/Login.css" rel="stylesheet" />
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+
+@using (Html.BeginForm())
+{
+    <div class="login-wrap mt-4 mb-4">
+        <div class="login-html">
+            <div class="login-form">
+                <div>
+                    <h3 class="text-center">Kayıt Formu</h3>
+                    @Html.ValidationSummary(false)
+                    <div class="group">
+                        <label for="user" class="label">E mail</label>
+                        @Html.TextBoxFor(x => x.Email, new { @class = "form-control", placeholder = "E-mail giriniz" })
+                    </div>
+                    <div class="group">
+                        <label for="user" class="label">Kullanıcı Adı</label>
+                        @Html.TextBoxFor(x => x.UserName, new { @class = "form-control", placeholder = "Kullanıcı Adı giriniz" })
+                    </div>
+                    <div class="group">
+                        <label for="pass" class="label">Şifre</label>
+                        @Html.TextBoxFor(x => x.Password, new { @class = "form-control", placeholder = "Şifre giriniz", type = "password" })
+                    </div>
+                    <div class="group">
+                        <label for="user" class="label">Kullanıcı Adı</label>
+                        @Html.TextBoxFor(x => x.RePassword, new { @class = "form-control", placeholder = "Şifre Tekrar giriniz", type = "password" })
+                    </div>
+                    <div class="group">
+                        <button type="submit" class="btn btn-success">Kayıt Ol</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+

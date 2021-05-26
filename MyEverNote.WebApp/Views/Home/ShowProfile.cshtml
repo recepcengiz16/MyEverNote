@@ -1,0 +1,49 @@
+﻿@using MyEverNote.Entities
+@model EverNoteUser
+
+@{
+    ViewBag.Title = "Kullanıcı Profili";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-3">
+            <!--left col-->
+
+            <div class="text-center">
+                <img src="~/images/@Model.ProfileImageFileName" class="avatar img-circle img-thumbnail mt-3" alt="avatar" width="150" height="150">
+
+            </div><br>
+
+            <ul class="list-group mb-5">
+                <li class="list-group-item text-muted">Activity <i class="fa fa-dashboard fa-1x"></i></li>
+                <li class="list-group-item text-right"><span class="pull-left"><strong>Shares</strong></span> 125</li>
+                <li class="list-group-item text-right"><span class="pull-left"><strong>Likes</strong></span> 13</li>
+                <li class="list-group-item text-right"><span class="pull-left"><strong>Posts</strong></span> 37</li>
+                <li class="list-group-item text-right"><span class="pull-left"><strong>Followers</strong></span> 78</li>
+            </ul>
+
+        </div><!--/col-3-->
+        <div class="col-sm-9">
+            <h2 class="mt-3">Profil Bilgileri</h2>
+
+            <table class="table mt-5">
+                <tbody>
+                    <tr>
+                        <td>@Html.DisplayNameFor(x=>x.Name):</td>
+                        <td>@Model.Name</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.DisplayNameFor(x => x.Surname):</td>
+                        <td>@Model.Surname</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.DisplayNameFor(x => x.Email):</td>
+                        <td>@Model.Email</td>
+                    </tr>
+                </tbody>
+            </table>      
+        </div>
+    </div>
+</div>
+

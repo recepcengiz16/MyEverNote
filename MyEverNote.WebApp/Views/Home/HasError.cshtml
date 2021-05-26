@@ -1,0 +1,38 @@
+﻿
+@{
+    ViewBag.Title = "HasError";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 offset-2 mt-5">
+
+            @{ 
+                Exception ex = null;
+                if (TempData["LastError"]!=null)
+                {
+                    ex = TempData["LastError"] as Exception;
+                }
+            }
+
+
+            <h1 class="text-center"><i class="fas fa-minus-circle"></i> Hata Oluştu</h1>
+
+            <p class="text-danger text-center">
+                Lütfen site yöneticisi ile iletişime geçin.
+                <br /><br />
+
+                @if (ex!=null)
+                {
+                    <strong>Hata Detay:</strong>
+                    @ex.Message
+                    <br /><br /><br />
+                }
+
+                @Html.ActionLink("Ana Sayfaya Git", "Index", "Home", null, new { @class = "btn btn-success" })
+                <a href="mailto:recepcengiz_96@outlook.com" class="btn btn-primary">E-posta gönder</a>
+            </p>
+        </div>
+    </div>
+</div>
+

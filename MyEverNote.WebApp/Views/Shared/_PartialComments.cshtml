@@ -1,0 +1,64 @@
+﻿@using MyEverNote.Entities
+@using MyEverNote.WebApp.Models
+@model List<Comment>
+
+@{
+    EverNoteUser user = CurrentSession.User;
+}
+
+@foreach (Comment item in Model)
+{
+    <div class="media">
+        <div class="media-top">
+            <i class="fas fa-comment-dots"></i>
+        </div>
+
+        <div class="media-body">
+            <div>
+                <div class="col-md-9" id="comment_text_@item.Id" contenteditable="false">
+                    @*butona basıldığında texti düzenlenmesi lazım ya. contenteditable içeriği düzenleyebilmeyi sağlar.true olursa textboxa dönüşür o yüzden false*@
+                    @item.Text
+                </div>
+                @if (user != null && user.Id == item.Owner.Id) //şu an login olmuş kullanıcının yorumu olduğu için silme düzeltme butonu gözüksün
+                {
+                    <div class="col-md-3 justify-content-end">
+                        <button type="button" class="btn btn-warning btn-sm" data-edit-mode="false" onclick="doComment(this, 'edit_clicked',@item.Id,'#comment_text_@item.Id');">
+                            @*this ile butonun kendisi sonra yapılacak işlem, sonra commentin idsi ve iconun idsi *@
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button type="button" class="btn btn-danger btn-sm" onclick="doComment(this, 'delete_clicked',@item.Id);">
+                            <i class="fas fa-trash-alt"></i>
+                        </button>
+                    </div>
+                }
+                <br />
+                <div class="col-md-12 text-right">
+                    <small>
+                        <i class="far fa-clock"></i>  @item.ModifiedOn &nbsp; &nbsp;
+                        <i class="fas fa-user"></i>  @item.Owner.UserName
+                    </small>
+                </div>
+
+            </div>
+        </div>
+    </div>
+}
+
+@if (user != null)
+{
+    <div class="row">
+        <div class="col-md-12">
+            <hr />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="input-group">
+                <input type="text" id="new_comment_text" class="form-control" placeholder="Yorumunuz" aria-label="Recipient's username" aria-describedby="yorum_ekle">
+                <div class="input-group-append">
+                    <button class="btn btn-success" type="button" id="yorum_ekle" onclick="doComment(this, 'new_clicked',-1);"><i class="fas fa-paper-plane"></i>  Gönder</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}

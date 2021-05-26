@@ -1,0 +1,110 @@
+﻿@using MyEverNote.Entities
+@using MyEverNote.WebApp
+@using MyEverNote.WebApp.Models
+<!DOCTYPE html>
+<html>
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Shop Homepage - Start Bootstrap Template</title>
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <!-- Bootstrap core CSS -->
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="~/Content/shop-homepage.css" rel="stylesheet">
+
+    <link href="~/Content/Site.css" rel="stylesheet"/>
+    <!-- Bootstrap core JavaScript -->
+    <script src="~/Scripts/jquery-3.6.0.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+</head>
+
+<body>
+  
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+            <a class="navbar-brand" href="/Home/Index">My EverNote</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav mr-auto"><!--navbar-nav-->
+                    @if (CurrentSession.User != null)
+                    {
+                        <li class="nav-item dropdown mr-2">
+                            <a class="nav-link dropdown-toggle" href="/Note/MyNotes" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-wrench" style="margin-right:10px;"></i>Yönetim
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="/Note/Create"><i class="fas fa-plus"></i>  Not Ekle</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="/Note/Index"><i class="fas fa-clipboard"></i>  Notlarım</a>
+                                <a class="dropdown-item" href="/Note/MyLikedNotes"><i class="fas fa-heart"></i>  Beğendiklerim</a>
+
+                                @if (CurrentSession.User.IsAdmin)
+                                {
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="/Category/Create"><i class="far fa-plus-square"></i>  Kategori Ekle</a>
+                                    <a class="dropdown-item" href="/Category/Index"><i class="fas fa-th-list"></i>  Kategoriler</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="/EverNoteUser/Create"><i class="fas fa-user-plus"></i>  Kullanıcı Ekle</a>
+                                    <a class="dropdown-item" href="/EverNoteUser/Index"><i class="fas fa-users"></i>  Kullanıcılar</a>
+                                }
+                            </div>
+                        </li>
+                    }
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Home/MostLiked">
+                            <i class="fas fa-star" style="margin-right:10px;"></i>En Beğenilenler
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Home/Index">
+                            <i class="fas fa-th-list" style="margin-right:10px;"></i>Son Yazılar
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Home/About">
+                            <i class="fas fa-info-circle" style="margin-right:10px;"></i>Hakkımızda
+                        </a>
+                    </li>                  
+                </ul>
+                <ul class="navbar-nav">
+                    @if (CurrentSession.User == null)
+                    {
+                        <li class="nav-item mr-2"><a href="/Home/Register" class="nav-link" style="text-decoration: none;"><i class="fas fa-user-plus"></i>  Kayıt Ol</a></li>
+                        <li class="nav-item"><a href="/Home/Login" class="nav-link" style="text-decoration: none;"><i class="fas fa-sign-in-alt"></i>  Giriş</a></li>
+
+                    }
+                    else
+                    {
+                        <li class="nav-item dropdown mr-2">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-user-circle" style="margin-right:10px;"></i>@CurrentSession.User.UserName
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="/Home/ShowProfile"><i class="fas fa-user-circle"></i>  Profili Göster</a>
+                                <a class="dropdown-item" href="/Home/EditProfile"><i class="fas fa-user-edit"></i>  Profili Düzenle</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="/Home/DeleteProfile" onclick="return confirm('Hesabınızı silmek istediğinize emin misiniz?');"><i class="far fa-trash-alt"></i>  Profili Sil</a>
+                            </div>
+                        </li>
+                        <li class="nav-item"><a href="/Home/LogOut" class="nav-link" style="text-decoration: none;"><i class="fas fa-sign-out-alt"></i>  Çıkış</a></li>
+                    }
+                </ul>
+        </div>
+    </nav>
+
+    @RenderBody()
+   
+    @RenderSection("footer",required:false)
+
+</body>
+</html>
